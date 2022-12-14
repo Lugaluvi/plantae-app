@@ -1,13 +1,14 @@
+import React, { useEffect, useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import { Box, IconButton, styled } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
-import { onValue, ref, set } from "firebase/database";
-import { useEffect, useState } from "react";
+import dayjs from "dayjs";
+import { get, ref, set } from "firebase/database";
+
 import { History, IconBox, Logo, SprinkleButton } from "../components";
 import { db } from "../firebase";
-import dayjs from "dayjs";
 
-const Title = styled("div")(({ theme }) => ({
+const Title = styled("div")(() => ({
   fontStyle: "normal",
   fontWeight: 700,
   fontSize: "20px",
@@ -61,10 +62,10 @@ export default function Home() {
   useEffect(() => {
     const query = ref(db);
 
-    return onValue(query, (snapshot) => {
-      const data = snapshot.val();
-
+    get(query).then((snapshot) => {
       if (snapshot.exists()) {
+        const data = snapshot.val();
+
         setName(data.name);
         setSpecie(data.specie);
         setWaterings(
@@ -76,18 +77,18 @@ export default function Home() {
         );
       }
     });
-  });
+  }, []);
 
   const sprinkle = () => {
     const query = ref(db);
 
-    onValue(query, (snapshot) => {
-      const data = snapshot.val();
-
-      set(query, {
-        ...data,
-        startWatering: true,
-      });
+    get(query).then((snapshot) => {
+      if (snapshot.exists()) {
+        set(query, {
+          ...snapshot.val(),
+          startWatering: true,
+        });
+      }
     });
   };
 
