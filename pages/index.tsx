@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
-import { Box, IconButton, styled } from "@mui/material";
+import { Box, Drawer, IconButton, styled } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import dayjs from "dayjs";
 import { get, onValue, ref, set } from "firebase/database";
 
-import { History, IconBox, Logo, SprinkleButton } from "../components";
+import {
+  EditPlantDetails,
+  History,
+  IconBox,
+  Logo,
+  SprinkleButton,
+} from "../components";
 import { db } from "../firebase";
 
 const Title = styled("div")(() => ({
@@ -59,6 +65,12 @@ export default function Home() {
   const [specie, setSpecie] = useState("");
   const [waterings, setWaterings] = useState<Watering[]>([]);
 
+  const [isOpen, setOpen] = useState(false);
+
+  const toggleDrawer = () => {
+    setOpen(!isOpen);
+  };
+
   useEffect(() => {
     const query = ref(db);
 
@@ -103,7 +115,7 @@ export default function Home() {
           </Grid>
           <Grid xs={12}>
             <Box textAlign="center" paddingTop="8px">
-              <EditButton color="primary" size="small">
+              <EditButton onClick={toggleDrawer} color="primary" size="small">
                 <EditIcon fontSize="small" />
               </EditButton>
             </Box>
@@ -140,6 +152,11 @@ export default function Home() {
       </Footer>
 
       <SprinkleButton onClick={() => sprinkle()} />
+      <EditPlantDetails
+        isOpen={isOpen}
+        toggleDrawer={toggleDrawer}
+        initialValues={{ name, specie }}
+      />
     </Box>
   );
 }
