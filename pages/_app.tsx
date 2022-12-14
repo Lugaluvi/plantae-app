@@ -8,6 +8,8 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 
 export default function MyApp({ Component, pageProps }: AppProps) {
+  const AnyComponent = Component as any;
+
   return (
     <>
       <Head>
@@ -37,7 +39,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         <link rel="apple-touch-icon" href="/apple-icon.png"></link>
         <meta name="theme-color" content="#317EFB" />
       </Head>
-      <Component {...pageProps} />
+      <AnyComponent {...pageProps} />
     </>
   );
 }
