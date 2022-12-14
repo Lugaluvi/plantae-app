@@ -6,10 +6,10 @@ import {
   TextField,
   ThemeProvider,
 } from "@mui/material";
-import React, { useEffect } from "react";
-import { motion } from "framer-motion";
-import { Form, Formik, useFormik } from "formik";
 import { get, ref, set } from "firebase/database";
+import { useFormik } from "formik";
+import { motion } from "framer-motion";
+import { useEffect } from "react";
 import { db } from "../firebase";
 
 interface FormValues {
@@ -112,6 +112,7 @@ export const EditPlantDetails = ({
             name: values.name,
             specie: values.specie,
           });
+          toggleDrawer();
         }
       });
     },
