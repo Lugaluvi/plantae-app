@@ -139,10 +139,7 @@ export default function Home() {
         <Logo />
       </Footer>
 
-      {/* SPRINKLE */}
-      <div onClick={() => sprinkle()}>
-        <SprinkleButton />
-      </div>
+      <SprinkleButton onClick={() => sprinkle()} />
     </Box>
   );
 }

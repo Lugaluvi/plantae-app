@@ -1,6 +1,7 @@
 import { styled } from "@mui/material";
 import React from "react";
 import { BrandIcon } from "../icons";
+import { motion } from "framer-motion";
 
 const Button = styled("div")(() => ({
   width: "108px",
@@ -21,6 +22,7 @@ const Circle = styled("div")(() => ({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
+  cursor: "pointer",
 }));
 
 const InnerCircle = styled("div")(() => ({
@@ -44,15 +46,21 @@ const Text = styled("div")(() => ({
   color: "#383838",
 }));
 
-export const SprinkleButton = () => {
+type Props = {
+  onClick: () => void;
+};
+
+export const SprinkleButton = ({ onClick }: Props) => {
   return (
     <Button>
-      <Circle>
-        <InnerCircle>
-          <BrandIcon />
-          <Text>Regar</Text>
-        </InnerCircle>
-      </Circle>
+      <motion.div whileTap={{ scale: 1.2 }} style={{ borderRadius: "100%" }}>
+        <Circle onClick={onClick}>
+          <InnerCircle>
+            <BrandIcon />
+            <Text>Regar</Text>
+          </InnerCircle>
+        </Circle>
+      </motion.div>
     </Button>
   );
 };

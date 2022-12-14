@@ -15,6 +15,7 @@
     "@types/react": "17.0.30",
     "dayjs": "^1.11.7",
     "firebase": "^9.15.0",
+    "framer-motion": "^7.9.1",
     "next": "latest",
     "next-pwa": "^5.6.0",
     "react": "^18.2.0",
