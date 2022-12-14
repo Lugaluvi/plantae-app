@@ -3,7 +3,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import { Box, IconButton, styled } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import dayjs from "dayjs";
-import { get, ref, set } from "firebase/database";
+import { get, onValue, ref, set } from "firebase/database";
 
 import { History, IconBox, Logo, SprinkleButton } from "../components";
 import { db } from "../firebase";
@@ -62,7 +62,7 @@ export default function Home() {
   useEffect(() => {
     const query = ref(db);
 
-    get(query).then((snapshot) => {
+    onValue(query, (snapshot) => {
       if (snapshot.exists()) {
         const data = snapshot.val();
 
